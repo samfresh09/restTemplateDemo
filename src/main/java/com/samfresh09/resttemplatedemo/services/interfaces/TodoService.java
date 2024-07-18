@@ -7,4 +7,8 @@ public interface TodoService {
     Todo getOneTodo(int id);
     Todo oneTodo(int id);
     ResponseEntity<Todo[]> getAllTodo();
+
+    Todo addTodoOne(Todo todo);
+    Todo addTodoTwo(Todo todo);
+
 }

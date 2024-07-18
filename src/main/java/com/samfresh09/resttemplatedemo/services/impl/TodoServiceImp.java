@@ -14,10 +14,12 @@ public class TodoServiceImp implements TodoService {
     public static final String URL = "https://jsonplaceholder.typicode.com/posts/";
     RestTemplate restTemplate= new RestTemplate();
 
-    HttpHeaders headers = new HttpHeaders(HttpHeaders.EMPTY);
+    // GET OPERATION
+    HttpHeaders headers = new HttpHeaders();
+
     HttpEntity httpEntity= new HttpEntity(headers);
 
-    //recuperation de tous les todos
+    //recuperation de tous les todos avec exchange
     public ResponseEntity<Todo[]> getAllTodo() {
         return this.restTemplate.exchange(URL, HttpMethod.GET,httpEntity, Todo[].class);
     }
@@ -28,10 +30,29 @@ public class TodoServiceImp implements TodoService {
         return this.restTemplate.getForObject(URL+id , Todo.class);
     }
 
-    //recuperation d'un todos
+    //recuperation d'un todos avec getForEntity
     @Override
     public Todo oneTodo(int id) {
         return this.restTemplate.getForEntity(URL+id , Todo.class).getBody();
     }
+
+    // POST OPERATION
+
+    //add with postForObject method
+    @Override
+    public Todo addTodoOne(Todo todo) {
+
+        System.out.println("todo: "+todo.getBody());
+        return this.restTemplate.postForObject(URL, todo, Todo.class);
+    }
+
+    //add with postForEntity method
+    @Override
+    public Todo addTodoTwo(Todo todo) {
+        return this.restTemplate.postForEntity(URL, todo, Todo.class).getBody();
+    }
+
+
+
 
 }

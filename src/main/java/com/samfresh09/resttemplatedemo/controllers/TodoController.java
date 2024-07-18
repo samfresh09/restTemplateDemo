@@ -5,14 +5,14 @@ import com.samfresh09.resttemplatedemo.services.interfaces.TodoService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
 public class TodoController {
     TodoService todoService;
+
+    //GET
 
     //use exchange to get all
     @GetMapping("/todo")
@@ -31,4 +31,19 @@ public class TodoController {
     public ResponseEntity<Todo> oneTodo(@RequestParam int id) {
         return  new ResponseEntity<>(this.todoService.oneTodo(id), HttpStatus.OK);
     }
+
+    //POST
+
+    //use postForObject
+    @PostMapping("/todo1")
+    public Todo addTodoOne(@RequestBody Todo todo) {
+        return  this.todoService.addTodoOne(todo);
+    }
+
+    //use postForEntity
+    @PostMapping("/todo2")
+    public Todo addTodoTwo(@RequestBody Todo todo) {
+        return  this.todoService.addTodoTwo(todo);
+    }
+
 }
